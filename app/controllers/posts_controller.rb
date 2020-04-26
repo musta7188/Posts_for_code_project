@@ -5,7 +5,8 @@ class PostsController < ApplicationController
    
    
     def index 
-        @posts = Post.all
+        @posts = params[:sort] ? Post.order_posts(params[:sort]) : Post.all
+        @tags = Tag.all
     end
 
     def show 
@@ -23,9 +24,10 @@ class PostsController < ApplicationController
         
         @post = Post.new(allowed_params)
         @post.user_id = session[:user_id]
+         @post.tags.build(name: "add tag")
         
         if @post.save
-           
+        
         flash[:notice]  =  "post successfully created"
         redirect_to @post
         else 
@@ -33,6 +35,7 @@ class PostsController < ApplicationController
             @languages = Language.all
             @tags = Tag.all
             flash[:errors] = @post.errors.full_messages 
+        
             render :new
 
         end
@@ -71,10 +74,9 @@ class PostsController < ApplicationController
     def set_post
       
         @post = Post.find(params[:id])
-        
     end
 
     def allowed_params 
-        params.require(:post).permit(:title, :description, :content, :language_id, tag_ids:[])
+        params.require(:post).permit(:title, :description, :content, :language_id, tag_ids:[], tags_attributes:[:name])
     end
 end
