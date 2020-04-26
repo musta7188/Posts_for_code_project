@@ -81,6 +81,8 @@ li a:hover {
           <li class="">
             <a class="nav-link" href="/posts">Show All Posts</a>
           </li>
+   <a href="/posts/new"><button class='btn btn-outline-success my-2 my-sm-0'>Create New Post </button></a>   
+
           <li class="">
       
             <a class="nav-link" href="/posts/new">Create New Post</a>
@@ -90,6 +92,7 @@ li a:hover {
             <%= form_tag ({controller: 'searchs', action: 'search_posts', method: 'post'}) do %>
               <input name='title' class="form-control mr-sm-2" type="search" placeholder="Search for Posts" aria-label="Search">
             <% end %>
+
           </li>
       
           

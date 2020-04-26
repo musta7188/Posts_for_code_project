@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
     before_action :require_logged_in
-    before_action :set_post, only: [:show, :add_comment, :edit, :update]
+    before_action :set_post, only: [:show, :add_comment, :edit, :update], except: [:new]
+
    
    
     def index 
@@ -71,6 +72,7 @@ class PostsController < ApplicationController
     private 
 
     def set_post
+      
         @post = Post.find(params[:id])
     end
 
